@@ -1,47 +1,37 @@
-console.log('Hello World!');
-
-//store random computer decision
-const getComputerChoice = () => {
-    const selection = ['rock', 'paper', 'scissors'];
-    const randomIndex = Math.floor(Math.random()*selection.length);
-    return selection[randomIndex];
+// Function to get a random computer choice
+function getComputerChoice() {
+  const choices = ['rock', 'paper', 'scissors'];
+  const randomIndex = Math.floor(Math.random() * choices.length);
+  return choices[randomIndex];
 }
 
-const randomIndex = getComputerChoice();
-console.log(randomIndex); //hide when finished
+// Function to get user input and make it case-insensitive
+function getUserChoice() {
+  let userInput = prompt("Let's play a game of Rock, Paper, Scissors! Type what you are going to play with:");
+  userInput = userInput.toLowerCase();
+  return userInput;
+}
 
-//store user decision (case insensitive)
-const getUserChoice = function() {
-    let userInput = prompt("Let's play a game of Rock, Paper, Scissors! Type what you are going to play with:");
-    userInput = userInput.toLowerCase();
-    return userInput;
-  };
+// Function to play one round of the game
+function playRound() {
+  const userChoice = getUserChoice();
+  const computerChoice = getComputerChoice();
 
-const myInput = getUserChoice();
-console.log(myInput); //hide when finished
-  
-  
-//play 1 round that uses user choice against computer choice
-const playRound = function(playerSelection, computerSelection) {
-    // Check for a tie
-    if (myInput === randomIndex) {
-      return "It's a tie!";
-    }
-  
-    // Check for player wins
-    if ((myInput === 'rock' && randomIndex === 'scissors') ||
-        (myInput === 'paper' && randomIndex === 'rock') ||
-        (myInput === 'scissors' && randomIndex === 'paper')) {
-      return "You win! " + myInput + " beats " + randomIndex;
-    }
-  
-    // If neither tie nor player wins, the computer wins
-    return "You lose! " + randomIndex + " beats " + myInput;
+  if (userChoice === computerChoice) {
+    console.log("It's a tie!");
+  } else if (
+    (userChoice === 'rock' && computerChoice === 'scissors') ||
+    (userChoice === 'paper' && computerChoice === 'rock') ||
+    (userChoice === 'scissors' && computerChoice === 'paper')
+  ) {
+    console.log(`You win! ${userChoice} beats ${computerChoice}.`);
+    return 1; // Return 1 to increment user score
+  } else {
+    console.log(`You lose! ${computerChoice} beats ${userChoice}.`);
+    return 0; // Return 0 to increment computer score
   }
-  
-  // Test the function with player input and random computer input
-  const playerSelection = getUserChoice
-  const computerSelection = getComputerChoice
-  
-  console.log(playRound(playerSelection, computerSelection));
-//5 round game that tracks the score at the end then announces it (loops)
+}
+
+console.log(playRound())
+
+// Function to play 5 rounds of the game and keep score
