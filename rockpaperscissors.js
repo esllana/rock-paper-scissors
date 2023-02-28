@@ -32,6 +32,23 @@ function playRound() {
   }
 }
 
-console.log(playRound())
-
 // Function to play 5 rounds of the game and keep score
+function playGame() {
+  let userScore = 0;
+  let computerScore = 0;
+
+  for (let i = 0; i < 5; i++) {
+    console.log(`Round ${i + 1}:`);
+    const result = playRound();
+    if (result === 1) {
+      userScore++;
+    } else {
+      computerScore++;
+    }
+  }
+
+  console.log(`\nGame over! Final score: You ${userScore}, Computer ${computerScore}.`);
+}
+
+// Call the playGame function to start the game
+playGame();
