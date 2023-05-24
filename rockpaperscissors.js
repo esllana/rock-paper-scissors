@@ -5,16 +5,14 @@ function getComputerChoice() {
   return choices[randomIndex];
 }
 
-// Function to get user input and make it case-insensitive
-function getUserChoice() {
-  let userInput = prompt("Let's play a game of Rock, Paper, Scissors! Type what you are going to play with:");
+// Function to get user input through prompt and make it case-insensitive
+/* function getUserChoice(userInput) {
   userInput = userInput.toLowerCase();
   return userInput;
-}
+} */
 
 // Function to play one round of the game
-function playRound() {
-  const userChoice = getUserChoice();
+function playRound(userChoice) {
   const computerChoice = getComputerChoice();
 
   if (userChoice === computerChoice) {
@@ -33,7 +31,7 @@ function playRound() {
 }
 
 // Function to play 5 rounds of the game and keep score
-function playGame() {
+/* function playGame() {
   let userScore = 0;
   let computerScore = 0;
 
@@ -48,7 +46,26 @@ function playGame() {
   }
 
   console.log(`\nGame over! Final score: You ${userScore}, Computer ${computerScore}.`);
-}
+} */
 
 // Call the playGame function to start the game
-playGame();
+/* playGame();
+playRound(); */
+
+//Event listener for rock button
+const rockButton = document.getElementById("rockButton");
+rockButton.addEventListener('click', function() {
+  playRound('rock');
+});
+
+//Event listener for paper button
+const paperButton = document.getElementById("paperButton");
+paperButton.addEventListener('click', function() {
+  playRound('paper');
+});
+
+//Event listener for scissor button
+const scissorsButton = document.getElementById("scissorsButton");
+scissorsButton.addEventListener('click', function() {
+  playRound('scissors');
+});
