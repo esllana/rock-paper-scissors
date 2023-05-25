@@ -3,10 +3,18 @@ body {
     
 }
 
+.title {
+    text-align: center;
+}
+
+.roundText {
+    font-size: 40px;
+}
+
 .container {
     display: flex;
     justify-content: center;
-    padding: 50px;
+    padding: 30px;
 }
 
 .playButton {
