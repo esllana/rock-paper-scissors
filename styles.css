@@ -1,0 +1,27 @@
+body {
+    font-family: verdana, 'open sans', sans-serif;
+    
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+}
+
+.playButton {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.scoreBoard {
+    border: 5px solid black;
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }

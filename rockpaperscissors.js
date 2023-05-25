@@ -5,67 +5,66 @@ function getComputerChoice() {
   return choices[randomIndex];
 }
 
-// Function to get user input through prompt and make it case-insensitive
-/* function getUserChoice(userInput) {
-  userInput = userInput.toLowerCase();
-  return userInput;
-} */
-
 // Function to play one round of the game
 function playRound(userChoice) {
   const computerChoice = getComputerChoice();
 
   if (userChoice === computerChoice) {
-    console.log("It's a tie!");
+    return "It's a tie!";
   } else if (
     (userChoice === 'rock' && computerChoice === 'scissors') ||
     (userChoice === 'paper' && computerChoice === 'rock') ||
     (userChoice === 'scissors' && computerChoice === 'paper')
   ) {
-    console.log(`You win! ${userChoice} beats ${computerChoice}.`);
-    return 1; // Return 1 to increment user score
+    return `You win! ${userChoice} beats ${computerChoice}.`;
   } else {
-    console.log(`You lose! ${computerChoice} beats ${userChoice}.`);
-    return 0; // Return 0 to increment computer score
+    return `You lose! ${computerChoice} beats ${userChoice}.`;
   }
 }
 
-// Function to play 5 rounds of the game and keep score
-/* function playGame() {
-  let userScore = 0;
-  let computerScore = 0;
+// Function to play the game and keep score
+function playGame(userChoice) {
+  const scoreBoard = document.querySelector('.scoreBoard');
+  const roundText = document.querySelector('.roundText');
+  const result = playRound(userChoice);
+  scoreBoard.innerHTML += `<p>${result}</p>`;
 
-  for (let i = 0; i < 5; i++) {
-    console.log(`Round ${i + 1}:`);
-    const result = playRound();
-    if (result === 1) {
-      userScore++;
+  const roundsPlayed = scoreBoard.getElementsByTagName('p').length;
+  roundText.textContent = `Round ${roundsPlayed}:`;
+
+  if (roundsPlayed === 5) {
+    const results = scoreBoard.querySelectorAll('p');
+    let userScore = 0;
+    let computerScore = 0;
+
+    results.forEach(result => {
+      if (result.textContent.includes('win')) {
+        userScore++;
+      } else if (result.textContent.includes('lose')) {
+        computerScore++;
+      }
+    });
+
+    let gameResult = '';
+    if (userScore > computerScore) {
+      gameResult = 'You win the game!';
+    } else if (userScore < computerScore) {
+      gameResult = 'You lose the game!';
     } else {
-      computerScore++;
+      gameResult = 'The game ends in a tie!';
     }
+
+    scoreBoard.innerHTML += `<p>${gameResult}</p>`;
   }
+}
 
-  console.log(`\nGame over! Final score: You ${userScore}, Computer ${computerScore}.`);
-} */
+// Get all the buttons with class "playButton"
+const playButtons = document.querySelectorAll('.playButton');
 
-// Call the playGame function to start the game
-/* playGame();
-playRound(); */
-
-//Event listener for rock button
-const rockButton = document.getElementById("rockButton");
-rockButton.addEventListener('click', function() {
-  playRound('rock');
-});
-
-//Event listener for paper button
-const paperButton = document.getElementById("paperButton");
-paperButton.addEventListener('click', function() {
-  playRound('paper');
-});
-
-//Event listener for scissor button
-const scissorsButton = document.getElementById("scissorsButton");
-scissorsButton.addEventListener('click', function() {
-  playRound('scissors');
+// Add event listeners to each button
+playButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const userChoice = button.dataset.choice;
+    playGame(userChoice);
+  });
 });
