@@ -1,4 +1,4 @@
-// Function to get a random computer choice
+//Function to get a random computer choice
 function getComputerChoice() {
   const choices = ['rock', 'paper', 'scissors'];
   const randomIndex = Math.floor(Math.random() * choices.length);
@@ -22,7 +22,7 @@ function playRound(userChoice) {
   }
 }
 
-// Function to play the game and keep score
+// Play 5 rounds of the game and update the roundText with the current round
 function playGame(userChoice) {
   const scoreBoard = document.querySelector('.scoreBoard');
   const roundText = document.querySelector('.roundText');
@@ -33,29 +33,52 @@ function playGame(userChoice) {
   roundText.textContent = `Round ${roundsPlayed}:`;
 
   if (roundsPlayed === 5) {
-    const results = scoreBoard.querySelectorAll('p');
-    let userScore = 0;
-    let computerScore = 0;
-
-    results.forEach(result => {
-      if (result.textContent.includes('win')) {
-        userScore++;
-      } else if (result.textContent.includes('lose')) {
-        computerScore++;
-      }
-    });
-
-    let gameResult = '';
-    if (userScore > computerScore) {
-      gameResult = 'You win the game!';
-    } else if (userScore < computerScore) {
-      gameResult = 'You lose the game!';
-    } else {
-      gameResult = 'The game ends in a tie!';
-    }
-
-    scoreBoard.innerHTML += `<p>${gameResult}</p>`;
+    setTimeout(() => {
+      keepScore(scoreBoard);
+      setTimeout(() => {
+        restartGame(scoreBoard);
+      }, 0);
+    }, 0);
   }
+}
+
+// Keep track of the score and display the final game result
+function keepScore(scoreBoard) {
+  const results = scoreBoard.querySelectorAll('p');
+  let userScore = 0;
+  let computerScore = 0;
+
+  results.forEach(result => {
+    if (result.textContent.includes('win')) {
+      userScore++;
+    } else if (result.textContent.includes('lose')) {
+      computerScore++;
+    }
+  });
+
+  let gameResult = '';
+  if (userScore > computerScore) {
+    gameResult = 'You win the game! Congratulations!';
+  } else if (userScore < computerScore) {
+    gameResult = 'You lose the game! Try again!';
+  } else {
+    gameResult = 'The game ends in a tie!';
+  }
+
+  scoreBoard.innerHTML += `<p>${gameResult}</p>`;
+}
+
+// Restart the game and clear the scoreboard
+function restartGame(scoreBoard) {
+  const gameResult = scoreBoard.querySelector('p:last-child').textContent;
+  setTimeout(() => {
+    const restart = confirm(`${gameResult} Do you want to restart the game?`);
+    if (restart) {
+      scoreBoard.innerHTML = '<h2 class="scoreTitle">Score Board</h2>';
+      const roundText = document.querySelector('.roundText');
+      roundText.textContent = '';
+    }
+  }, 1000); // Delay the prompt by 1000 milliseconds (1 second)
 }
 
 // Get all the buttons with class "playButton"
